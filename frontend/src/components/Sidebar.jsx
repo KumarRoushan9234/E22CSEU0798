@@ -1,36 +1,49 @@
-import { NavLink } from "react-router-dom";
-import { FaChartPie, FaUsers, FaFire, FaStream } from "react-icons/fa";
+// src/components/Sidebar.jsx
+import { useState } from "react";
+import { LogOut, Users, MessageSquare, Home, Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export default function Sidebar() {
+const Sidebar = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
-    <aside className="w-64 h-screen bg-gray-800 text-white p-5 flex flex-col">
-      <h2 className="text-lg font-bold mb-6">Dashboard</h2>
+    <aside
+      className={`h-screen bg-gray-900 text-white transition-all ${
+        collapsed ? "w-16" : "w-60"
+      } p-4`}
+    >
+      <button
+        onClick={() => setCollapsed(!collapsed)}
+        className="mb-4 flex items-center"
+      >
+        {collapsed ? "➡️" : "⬅️"}
+      </button>
+
       <nav className="flex flex-col space-y-4">
-        <NavLink
-          to="/"
-          className="flex items-center space-x-2 hover:text-yellow-400"
-        >
-          <FaChartPie /> <span>Overview</span>
-        </NavLink>
-        <NavLink
-          to="/top-users"
-          className="flex items-center space-x-2 hover:text-yellow-400"
-        >
-          <FaUsers /> <span>Top Users</span>
-        </NavLink>
-        <NavLink
-          to="/trending-posts"
-          className="flex items-center space-x-2 hover:text-yellow-400"
-        >
-          <FaFire /> <span>Trending Posts</span>
-        </NavLink>
-        <NavLink
-          to="/live-feed"
-          className="flex items-center space-x-2 hover:text-yellow-400"
-        >
-          <FaStream /> <span>Live Feed</span>
-        </NavLink>
+        <Link to="/" className="flex items-center space-x-2">
+          <Home size={20} />
+          {!collapsed && <span>Dashboard</span>}
+        </Link>
+        <Link to="/top-users" className="flex items-center space-x-2">
+          <Users size={20} />
+          {!collapsed && <span>Top Users</span>}
+        </Link>
+        <Link to="/trending-posts" className="flex items-center space-x-2">
+          <MessageSquare size={20} />
+          {!collapsed && <span>Trending Posts</span>}
+        </Link>
+        <Link to="/search-users" className="flex items-center space-x-2">
+          <Search size={20} />
+          {!collapsed && <span>Search Users</span>}
+        </Link>
       </nav>
+
+      <button className="absolute bottom-4 left-4 flex items-center space-x-2 text-red-400">
+        <LogOut size={20} />
+        {!collapsed && <span>Logout</span>}
+      </button>
     </aside>
   );
-}
+};
+
+export default Sidebar;
