@@ -42,6 +42,7 @@ export async function getTopPosts(req, res) {
             .sort((a, b) => b.commentCount - a.commentCount);
 
         res.json(sortedPosts.slice(0, 5));
+        
     } catch (error) {
         console.error("Error fetching top posts:", error.response?.data || error.message);
         res.status(500).json({ error: "Error fetching top posts" });

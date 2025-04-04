@@ -4,11 +4,13 @@ import Sidebar from "./components/Sidebar";
 import LiveFeed from "./pages/LiveFeed";
 import Analytics from "./pages/Analytics";
 import Login from "./pages/Login";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <Router>
       <div className="flex">
+        {/* <Navbar /> */}
         <Sidebar />
         <div className="flex-1 p-4">
           <Routes>
