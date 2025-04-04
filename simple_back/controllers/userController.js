@@ -2,10 +2,9 @@ import axios from "axios";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 const USERS_URL = process.env.USERS_URL;
 
-/**Get all users */
+/** Get all users */
 export async function getAllUsers(req, res) {
     try {
         const response = await axios.get(USERS_URL, {
@@ -19,7 +18,7 @@ export async function getAllUsers(req, res) {
     }
 }
 
-/**Get top 5 users with most posts */
+/** Get top 5 users with most posts */
 export async function getTopUsers(req, res) {
     try {
         const response = await axios.get(USERS_URL, {
@@ -42,28 +41,6 @@ export async function getTopUsers(req, res) {
     } catch (error) {
         console.error("Error fetching top users:", error);
         res.status(500).json({ error: "Error fetching top users" });
-    }
-}
-
-/**Search users by name */
-export async function searchUsers(req, res) {
-    try {
-        const { name } = req.query;
-        if (!name) return res.status(400).json({ error: "Missing 'name' query parameter" });
-
-        const response = await axios.get(USERS_URL, {
-            headers: { Authorization: `Bearer ${req.accessToken}` }
-        });
-
-        const users = response.data.users;
-        const filteredUsers = Object.entries(users).filter(([id, username]) =>
-            username.toLowerCase().includes(name.toLowerCase())
-        );
-
-        res.json(filteredUsers.map(([id, username]) => ({ id, name: username })));
-    } catch (error) {
-        console.error("Error searching users:", error);
-        res.status(500).json({ error: "Error searching users" });
     }
 }
 

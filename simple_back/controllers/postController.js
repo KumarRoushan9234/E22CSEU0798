@@ -2,14 +2,13 @@ import axios from "axios";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 const POSTS_URL = process.env.POSTS_URL;
 
-/**Get all posts */
+/** Get all posts */
 export async function getAllPosts(req, res) {
     try {
         const response = await axios.get(POSTS_URL, {
-            headers: { Authorization: `Bearer ${req.accessToken}` }
+            headers: { Authorization: `Bearer ${req.accessToken}` } // Use token from cookies
         });
 
         res.json(response.data.posts);
@@ -19,7 +18,7 @@ export async function getAllPosts(req, res) {
     }
 }
 
-/**Get top 5 posts with most comments */
+/** Get top 5 posts with most comments */
 export async function getTopPosts(req, res) {
     try {
         const response = await axios.get(POSTS_URL, {
@@ -33,13 +32,13 @@ export async function getTopPosts(req, res) {
             axios.get(`${POSTS_URL}/${post.id}/comments`, {
                 headers: { Authorization: `Bearer ${req.accessToken}` }
             }).then(res => ({ ...post, commentCount: res.data.comments.length }))
-            .catch(() => ({ ...post, commentCount: 0 })) // Handle API failure gracefully
+            .catch(() => ({ ...post, commentCount: 0 }))
         );
 
         const postCommentCounts = await Promise.allSettled(commentRequests);
         const sortedPosts = postCommentCounts
-            .filter(res => res.status === "fulfilled")  // Remove failed requests
-            .map(res => res.value)  
+            .filter(res => res.status === "fulfilled")
+            .map(res => res.value)
             .sort((a, b) => b.commentCount - a.commentCount);
 
         res.json(sortedPosts.slice(0, 5));
@@ -49,7 +48,7 @@ export async function getTopPosts(req, res) {
     }
 }
 
-/** ✅ Get latest 5 posts */
+/** Get latest 5 posts */
 export async function getLatestPosts(req, res) {
     try {
         const response = await axios.get(POSTS_URL, {
@@ -66,7 +65,7 @@ export async function getLatestPosts(req, res) {
     }
 }
 
-/** ✅ Get comments of a specific post */
+/** Get comments of a specific post */
 export async function getPostComments(req, res) {
     try {
         const { id } = req.params;

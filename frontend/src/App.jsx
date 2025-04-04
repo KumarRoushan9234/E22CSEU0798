@@ -1,26 +1,25 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import Navbar from "./components/Navbar";
-import Dashboard from "./pages/Dashboard";
-import TopUsers from "./pages/TopUsers";
-import TrendingPosts from "./pages/TrendingPosts";
 import LiveFeed from "./pages/LiveFeed";
+import Analytics from "./pages/Analytics";
+import Login from "./pages/Login";
 
-export default function App() {
+function App() {
   return (
     <Router>
       <div className="flex">
         <Sidebar />
-        <div className="flex-1">
-          <Navbar />
+        <div className="flex-1 p-4">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/top-users" element={<TopUsers />} />
-            <Route path="/trending-posts" element={<TrendingPosts />} />
-            <Route path="/live-feed" element={<LiveFeed />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<LiveFeed />} />
+            <Route path="/analytics" element={<Analytics />} />
           </Routes>
         </div>
       </div>
     </Router>
   );
 }
+
+export default App;

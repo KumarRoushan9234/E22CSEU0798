@@ -3,11 +3,12 @@ import { authenticateUser } from "../services/authService.js";
 export async function loginUser(req, res) {
     try {
         const accessToken = await authenticateUser();
-
-        res.cookie("access_token", accessToken, {
-            httpOnly: true,
-            secure: false,
-            maxAge: 60 * 60 * 1000 
+        
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,   
+            secure: process.env.NODE_ENV === "production", // Secure in production
+            sameSite: "Strict", // Prevent CSRF attacks
+            maxAge: 60 * 60 * 1000 // 1 hour expiration
         });
 
         res.json({ message: "Login successful" });
@@ -16,7 +17,13 @@ export async function loginUser(req, res) {
     }
 }
 
+
 export function logoutUser(req, res) {
-    res.clearCookie("access_token");
+    res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict"
+    });
+
     res.json({ message: "Logged out successfully" });
 }

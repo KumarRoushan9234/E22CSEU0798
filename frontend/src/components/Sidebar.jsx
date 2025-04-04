@@ -1,48 +1,60 @@
 // src/components/Sidebar.jsx
 import { useState } from "react";
-import { LogOut, Users, MessageSquare, Home, Search } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Menu, LogOut, Home, TrendingUp } from "lucide-react";
+import apiService from "../services/apiService";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await apiService.post("/auth/logout");
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
 
   return (
-    <aside
-      className={`h-screen bg-gray-900 text-white transition-all ${
+    <div
+      className={`h-screen bg-gray-900 text-white ${
         collapsed ? "w-16" : "w-60"
-      } p-4`}
+      } transition-all duration-300`}
     >
-      <button
-        onClick={() => setCollapsed(!collapsed)}
-        className="mb-4 flex items-center"
-      >
-        {collapsed ? "➡️" : "⬅️"}
+      <button onClick={() => setCollapsed(!collapsed)} className="p-4">
+        <Menu size={24} />
       </button>
 
-      <nav className="flex flex-col space-y-4">
-        <Link to="/" className="flex items-center space-x-2">
+      <nav className="mt-4 space-y-4">
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 p-3 hover:bg-gray-800 w-full"
+        >
           <Home size={20} />
-          {!collapsed && <span>Dashboard</span>}
-        </Link>
-        <Link to="/top-users" className="flex items-center space-x-2">
-          <Users size={20} />
-          {!collapsed && <span>Top Users</span>}
-        </Link>
-        <Link to="/trending-posts" className="flex items-center space-x-2">
-          <MessageSquare size={20} />
-          {!collapsed && <span>Trending Posts</span>}
-        </Link>
-        <Link to="/search-users" className="flex items-center space-x-2">
-          <Search size={20} />
-          {!collapsed && <span>Search Users</span>}
-        </Link>
+          {!collapsed && <span>Live Feed</span>}
+        </button>
+
+        <button
+          onClick={() => navigate("/analytics")}
+          className="flex items-center gap-2 p-3 hover:bg-gray-800 w-full"
+        >
+          <TrendingUp size={20} />
+          {!collapsed && <span>Analytics</span>}
+        </button>
       </nav>
 
-      <button className="absolute bottom-4 left-4 flex items-center space-x-2 text-red-400">
-        <LogOut size={20} />
-        {!collapsed && <span>Logout</span>}
-      </button>
-    </aside>
+      <div className="absolute bottom-4 left-4">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 p-3 hover:bg-red-600 w-full"
+        >
+          <LogOut size={20} />
+          {!collapsed && <span>Logout</span>}
+        </button>
+      </div>
+    </div>
   );
 };
 

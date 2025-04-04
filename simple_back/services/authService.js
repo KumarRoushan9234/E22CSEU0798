@@ -15,6 +15,8 @@ export async function authenticateUser() {
             clientSecret: process.env.CLIENT_SECRET
         });
 
+        console.log(response);
+        
         return response.data.access_token;
     } catch (error) {
         console.error("Authentication error:", error.response?.data || error.message);
