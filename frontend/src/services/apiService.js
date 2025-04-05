@@ -1,19 +1,17 @@
-// src/services/apiService.js
 import axios from "axios";
 
 const apiService = axios.create({
   baseURL: "http://localhost:5000/api",
-  withCredentials: true, // Allows sending cookies
+  withCredentials: true, 
   headers: { "Content-Type": "application/json" },
 });
 
-// Interceptor to handle 401 (Unauthorized) globally
 apiService.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       console.error("🔴 Unauthorized! Redirecting to login...");
-      window.location.href = "/login"; // Redirect to login page
+      window.location.href = "/login"; 
     }
     return Promise.reject(error);
   }

@@ -6,11 +6,11 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      await apiService.post("/auth/login"); // No request body needed
+      await apiService.post("/auth/login");
       console.log("✅ Login successful! Redirecting...");
       navigate("/");
     } catch (error) {
-      console.error("❌ Login failed:", error);
+      console.error("Login failed:", error);
     }
   };
 

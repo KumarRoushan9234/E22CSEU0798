@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import { useState } from "react";
 import { Menu, LogOut, Home, TrendingUp } from "lucide-react";
 import apiService from "../services/apiService";

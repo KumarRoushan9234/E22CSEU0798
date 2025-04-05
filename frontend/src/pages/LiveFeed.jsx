@@ -14,18 +14,16 @@ const LiveFeed = () => {
     apiService
       .get("/users")
       .then((res) => {
-        console.log("✅ Users Fetched:", res.data);
+        console.log("Users Fetched:", res.data);
 
         let usersArray = [];
 
         if (Array.isArray(res.data)) {
-          // If API returns a proper array
           usersArray = res.data;
         } else if (typeof res.data === "object") {
-          // If API returns an object with numeric keys, convert it to an array of objects
           usersArray = Object.entries(res.data).map(([key, value]) => ({
-            id: key, // Use key as `id`
-            username: value, // Value is the username
+            id: key,
+            username: value,
           }));
         } else {
           throw new Error(
@@ -36,7 +34,7 @@ const LiveFeed = () => {
         setUsers(usersArray);
       })
       .catch((err) => {
-        console.error("❌ API Error:", err);
+        console.error(" API Error:", err);
         if (err.response?.status === 401) {
           setError("Unauthorized! Redirecting to login...");
           setTimeout(() => navigate("/login"), 1000);
@@ -47,7 +45,6 @@ const LiveFeed = () => {
       .finally(() => setLoading(false));
   }, [navigate]);
 
-  // Filter users safely
   const filteredUsers = users.filter(
     (user) =>
       user.username &&
@@ -56,7 +53,6 @@ const LiveFeed = () => {
 
   return (
     <div className="p-4">
-      {/* Search Bar */}
       <div className="mb-4 flex items-center border rounded-lg p-2 bg-gray-100">
         <Search size={20} className="text-gray-600" />
         <input
@@ -68,17 +64,14 @@ const LiveFeed = () => {
         />
       </div>
 
-      {/* Loading */}
       {loading && <p className="text-center text-gray-500">Loading users...</p>}
 
-      {/* Error */}
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {/* Users List */}
       <div className="space-y-4">
         {filteredUsers.map((user, index) => (
           <div
-            key={user.id || index} // Fallback key if `id` is missing
+            key={user.id || index}
             className="p-4 bg-white shadow rounded-lg flex items-center gap-3"
           >
             <User size={40} className="text-gray-600" />
@@ -91,7 +84,6 @@ const LiveFeed = () => {
         ))}
       </div>
 
-      {/* No Users Found */}
       {!loading && filteredUsers.length === 0 && (
         <p className="text-center text-gray-500">No users found.</p>
       )}

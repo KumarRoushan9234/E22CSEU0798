@@ -1,4 +1,3 @@
-// src/pages/Analytics.jsx
 import { useEffect, useState } from "react";
 import apiService from "../services/apiService";
 import { TrendingUp } from "lucide-react";

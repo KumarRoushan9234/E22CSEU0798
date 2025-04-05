@@ -26,7 +26,7 @@ This project is a **social media analytics system** with:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 Affordmed_social/
