@@ -4,7 +4,7 @@
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This project is a **social media analytics system** with:
 
@@ -14,7 +14,7 @@ This project is a **social media analytics system** with:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Component   | Tech Used                             |
 | ----------- | ------------------------------------- |
@@ -50,15 +50,15 @@ Affordmed_social/
 │── README.md
 ```
 
-## 🚀 Features
+## Features
 
-### 📡 Backend Features (API)
+### Backend Features (API)
 
 - **User Analytics** (`/users`, `/users/top`)
 - **Post Analytics** (`/posts`, `/posts/analytics`, `/posts/latest`, `/posts/:id/comments`)
 - **Authentication** (`/login`, `/logout`) using **cookie-based auth**
 
-### 🎨 Frontend Features (Dashboard)
+### Frontend Features (Dashboard)
 
 - **Top Users Page** – Shows **top 5 users** by post count.
 - **Trending Posts Page** – Shows **top posts** by comments.
@@ -67,15 +67,15 @@ Affordmed_social/
 
 ---
 
-## 📷 Screenshots
+## Screenshots
 
-### 🔹 Frontend Dashboard Preview
+### Frontend Dashboard Preview
 
 | Dashboard                                                     | Trending Posts                                                     |
 | ------------------------------------------------------------- | ------------------------------------------------------------------ |
 | ![Dashboard](screenshot/Screenshot%202025-04-04%20130238.png) | ![Trending Posts](screenshot/Screenshot%202025-04-04%20130622.png) |
 
-### 🔹 Folder Structure Preview
+### Folder Structure Preview
 
 | Backend (simple_back)                                       | Frontend (React)                                             |
 | ----------------------------------------------------------- | ------------------------------------------------------------ |
@@ -83,7 +83,7 @@ Affordmed_social/
 
 ---
 
-## 🛠️ Microservices Architecture
+## Microservices Architecture
 
 The backend is **split into multiple services**, where each service **handles a specific domain**:
 
@@ -94,7 +94,7 @@ The backend is **split into multiple services**, where each service **handles a 
 
 ---
 
-## ⚡ Caching Implementation
+## Caching Implementation
 
 To optimize API response times, **in-memory caching** is used.
 
